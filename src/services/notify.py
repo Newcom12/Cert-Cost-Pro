@@ -1,5 +1,6 @@
 """Уведомление админов о новой заявке."""
 from aiogram import Bot
+from loguru import logger
 
 from src.bot.keyboards import kb_lead_actions
 from src.config import get_settings
@@ -23,10 +24,10 @@ async def notify_admins_new_lead(bot: Bot, calc_data: dict, lead, calculation) -
     if not settings.admin_ids_list:
         return
     text = (
-        "🔥 <b>Новая заявка!</b>\n\n"
+        "<b>Новая заявка</b>\n\n"
         f"Услуга: {SERVICE_NAMES.get(calc_data.get('service_key'), calc_data.get('service_key'))}\n"
         f"Страна: {COUNTRY_NAMES.get(calc_data.get('country_key'), calc_data.get('country_key'))}\n"
-        f"Продукция: {calc_data.get('product_type', '—')}\n"
+        f"Продукция: {calc_data.get('product_type', '-')}\n"
         f"SKU: {calc_data.get('sku_count')}\n"
         f"Срочность: {URGENCY_NAMES.get(calc_data.get('urgency_key'), calc_data.get('urgency_key'))}\n"
         f"Итог: {calc_data.get('final_price', 0):,.0f} ₽\n\n"
@@ -38,5 +39,5 @@ async def notify_admins_new_lead(bot: Bot, calc_data: dict, lead, calculation) -
     for admin_id in settings.admin_ids_list:
         try:
             await bot.send_message(admin_id, text, reply_markup=kb)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Не удалось отправить уведомление админу {}: {}", admin_id, exc)

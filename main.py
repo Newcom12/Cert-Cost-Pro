@@ -20,7 +20,8 @@ async def main() -> None:
     setup_logging(settings.log_level)
 
     redis = Redis.from_url(settings.redis_url, decode_responses=True)
-    storage = RedisStorage(redis=redis, state_ttl=86400)  # 24 ч — затем сброс FSM
+    # Состояние FSM в Redis хранится 24 часа.
+    storage = RedisStorage(redis=redis, state_ttl=86400)
 
     bot = Bot(
         token=settings.bot_token,

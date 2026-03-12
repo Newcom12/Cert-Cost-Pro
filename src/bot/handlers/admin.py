@@ -32,21 +32,21 @@ async def admin_commands(message: Message, session):
     if text == "/stats":
         stats = await get_stats(session)
         msg = (
-            f"📊 <b>Статистика</b>\n\n"
-            f"Расчётов: {stats['total_calculations']}\n"
+            f"<b>Статистика</b>\n\n"
+            f"Расчетов: {stats['total_calculations']}\n"
             f"Заявок: {stats['total_leads']}\n"
-            f"Конверсия расчёт → заявка: {stats['conversion_percent']}%"
+            f"Конверсия расчет -> заявка: {stats['conversion_percent']}%"
         )
         await message.answer(msg)
         return
     if text == "/avg_check":
         avg = await get_avg_check(session)
-        await message.answer(f"💰 Средний чек: <b>{avg:,.0f} ₽</b>")
+        await message.answer(f"Средний чек: <b>{avg:,.0f} ₽</b>")
         return
     if text == "/top_services":
         top = await get_top_services(session)
         lines = [f"{SERVICE_NAMES.get(s, s)}: {c}" for s, c in top]
-        await message.answer("📌 Топ услуг:\n" + "\n".join(lines) if lines else "Нет данных")
+        await message.answer("Топ услуг:\n" + "\n".join(lines) if lines else "Нет данных")
         return
     if text == "/export_csv":
         from src.models import Calculation

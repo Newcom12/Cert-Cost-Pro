@@ -1,7 +1,7 @@
 """Клавиатуры бота."""
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
 
-# --- Услуги (шаг 1) ---
+# Услуги, шаг 1.
 SERVICES = [
     ("Сертификат ТР ТС", "cert_tr_ts"),
     ("Декларация", "declaration"),
@@ -17,7 +17,7 @@ def kb_services() -> InlineKeyboardMarkup:
     ])
 
 
-# --- Страна (шаг 2) ---
+# Страна, шаг 2.
 COUNTRIES = [
     ("Россия", "russia"),
     ("Китай", "china"),
@@ -32,7 +32,7 @@ def kb_countries() -> InlineKeyboardMarkup:
     ])
 
 
-# --- Типовые категории продукции (шаг 3) ---
+# Типовые категории продукции, шаг 3.
 TYPICAL_PRODUCTS = [
     "Одежда и текстиль",
     "Продукты питания",
@@ -48,7 +48,7 @@ def kb_typical_products() -> InlineKeyboardMarkup:
     ])
 
 
-# --- Срочность (шаг 5) ---
+# Срочность, шаг 5.
 URGENCY_OPTIONS = [
     ("Стандарт (30 дней)", "standard"),
     ("Ускоренный (14 дней)", "14"),
@@ -61,7 +61,7 @@ def kb_urgency() -> InlineKeyboardMarkup:
     ])
 
 
-# --- Выезд эксперта (шаг 6) ---
+# Выезд эксперта, шаг 6.
 def kb_inspection() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [
@@ -71,7 +71,7 @@ def kb_inspection() -> InlineKeyboardMarkup:
     ])
 
 
-# --- После расчёта ---
+# Действия после расчета.
 def kb_after_calc() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Оставить заявку", callback_data="lead:submit")],
@@ -79,7 +79,7 @@ def kb_after_calc() -> InlineKeyboardMarkup:
     ])
 
 
-# --- Админ: заявка ---
+# Действия админа по заявке.
 def kb_lead_actions(lead_id: int) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Взять в работу", callback_data=f"adm:take:{lead_id}")],
@@ -88,7 +88,7 @@ def kb_lead_actions(lead_id: int) -> InlineKeyboardMarkup:
     ])
 
 
-# --- Главное меню (опционально) ---
+# Главное меню.
 def kb_main() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
         keyboard=[[KeyboardButton(text="Рассчитать стоимость")]],

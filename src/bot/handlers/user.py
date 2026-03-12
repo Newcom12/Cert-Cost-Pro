@@ -104,7 +104,7 @@ async def step_sku_ok(message: Message, state: FSMContext):
         return
     if sku > 50:
         await message.answer(
-            "⚠️ Количество SKU больше 50 — сроки и стоимость могут существенно вырасти. "
+            "Количество SKU больше 50 - сроки и стоимость могут существенно вырасти. "
             "Продолжаем с введённым значением?"
         )
     await state.update_data(sku_count=sku)
@@ -214,8 +214,8 @@ async def lead_start_contacts(cq: CallbackQuery, state: FSMContext):
     await cq.answer()
 
 
-# ----- Шаг 8: Контакты (имя → телефон → email) -----
-# Используем подсостояние через data: step_contacts = name | phone | email
+# ----- Шаг 8: Контакты (имя -> телефон -> email) -----
+# Используем подсостояние в data: contact_step = name | phone | email
 @router.message(CalcStates.enter_contacts, F.text)
 async def step_contacts(message: Message, state: FSMContext, session: AsyncSession):
     data = await state.get_data()
@@ -262,7 +262,7 @@ async def step_contacts(message: Message, state: FSMContext, session: AsyncSessi
 
         await state.clear()
         await message.answer(
-            "✅ Заявка отправлена! Менеджер свяжется с вами в ближайшее время."
+            "Заявка отправлена. Менеджер свяжется с вами в ближайшее время."
         )
         from src.services.notify import notify_admins_new_lead
         # calculation_id и данные расчёта в full_data; для текста нужны поля расчёта
