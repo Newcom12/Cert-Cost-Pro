@@ -12,17 +12,27 @@
    - `BOT_TOKEN` — токен бота от @BotFather
    - `ADMIN_TELEGRAM_IDS` — ID менеджеров через запятую (уведомления о заявках)
 
-2. Локально (с уже поднятыми PostgreSQL и Redis):
-   ```bash
-   poetry install
-   poetry run python -m src.main
-   ```
+2. **Запустить PostgreSQL и Redis** (нужны для бота):
 
-3. Через Docker:
+   **Вариант A — через Docker** (нужен [Docker Desktop](https://www.docker.com/products/docker-desktop/) или Docker Engine):
    ```bash
    docker compose up -d postgres redis
-   # заполнить .env, затем:
-   docker compose up -d bot
+   ```
+   После этого в `.env` должны быть:
+   - `DATABASE_URL=postgresql+asyncpg://certcost:certcost@localhost:5432/certcost`
+   - `REDIS_URL=redis://localhost:6379/0`
+
+   **Вариант B — без Docker:** установить и запустить [PostgreSQL](https://www.postgresql.org/download/windows/) и [Redis для Windows](https://github.com/microsoftarchive/redis/releases) (или WSL), затем прописать в `.env` свои хост/порт/логин/пароль.
+
+3. Запуск бота локально:
+   ```bash
+   poetry install
+   poetry run python main.py
+   ```
+
+4. Либо запустить всё (postgres + redis + bot) в Docker:
+   ```bash
+   docker compose up -d
    ```
 
 ## Сценарий бота
